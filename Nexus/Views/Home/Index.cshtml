@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    Html.RenderPartial("_HomeBanner");
+    Html.RenderPartial("_WorkArea");
+    Html.RenderAction("Advantages", "Home");
+    Html.RenderPartial("_ScreenArea");
+    Html.RenderPartial("_MadeLifeArea2");
+    Html.RenderPartial("_PriceArea");
+    Html.RenderPartial("_TestArea");
+    Html.RenderPartial("_MadeLifeArea3");
+    Html.RenderPartial("_ImpressArea");
+
+
+}

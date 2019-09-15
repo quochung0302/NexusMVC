@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Pricing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Pricing</h2>
+                <div class="page_link">
+                    @Html.ActionLink("Home", "Index", "Home")
+                    @Html.ActionLink("Prive", "Pricing", "Pages")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@{
+    Html.RenderPartial("_PriceArea");
+    Html.RenderPartial("_ImpressArea");
+
+}
+
