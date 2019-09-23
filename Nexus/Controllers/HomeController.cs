@@ -1,4 +1,5 @@
-﻿using Nexus.Models;
+﻿using Nexus.DAO;
+using Nexus.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,12 @@ namespace Nexus.Controllers
 {
     public class HomeController : Controller
     {
-        private NexusContext _context;
-        public HomeController()
-        {
-            _context = new NexusContext();
-        }
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
         public ActionResult Index()
         {
-            return View();
+            AdvantageDao advantageDao = new AdvantageDao();
+
+            var advantages = advantageDao.GetList();
+            return View( "Index", advantages);
 
         }
 
@@ -37,12 +32,23 @@ namespace Nexus.Controllers
 
             return View();
         }
-
-        [ChildActionOnly]
-        public ActionResult Advantages()
+        [HttpPost]
+        public ActionResult AddMessage(Feedback fb)
         {
-            var advantages = _context.Advantages.ToList();
-            return PartialView(advantages);
+            
+            if (ModelState.IsValid)
+            {
+                FeedbackDao fbDao = new FeedbackDao();
+                fb.TimeAdded = DateTime.Now;
+                fbDao.AddMessage(fb);
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return View("Contact");
+            }
+
         }
     }
 }

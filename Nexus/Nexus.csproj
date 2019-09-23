@@ -55,6 +55,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -126,28 +128,28 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Models\LoginModel.cs" />
+    <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\UserLogin.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="DAO\AdvantageDao.cs" />
+    <Compile Include="DAO\FeedbackDao.cs" />
+    <Compile Include="DAO\UserDao.cs" />
+    <Compile Include="EF\Advantage.cs" />
+    <Compile Include="EF\Feedback.cs" />
+    <Compile Include="EF\NexusDbContext.cs" />
+    <Compile Include="EF\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201909141224399_setDb.cs" />
-    <Compile Include="Migrations\201909141224399_setDb.Designer.cs">
-      <DependentUpon>201909141224399_setDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909141245487_add-data.cs" />
-    <Compile Include="Migrations\201909141245487_add-data.Designer.cs">
-      <DependentUpon>201909141245487_add-data.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909141247596_add-data2.cs" />
-    <Compile Include="Migrations\201909141247596_add-data2.Designer.cs">
-      <DependentUpon>201909141247596_add-data2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Advantage.cs" />
-    <Compile Include="Models\NexusContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +251,8 @@
     <Content Include="Content\img\testimonials\testi-1.png" />
     <Content Include="Content\img\testimonials\testi-2.png" />
     <Content Include="Content\img\testimonials\testi-bg.jpg" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Content\vendors\animate-css\animate.css" />
     <Content Include="Content\vendors\animate-css\wow.min.js" />
     <Content Include="Content\vendors\bootstrap-datepicker\bootstrap-datetimepicker.min.css" />
@@ -316,11 +320,15 @@
     <Content Include="Scripts\jquery.ajaxchimp.min.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\mail-script.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\stellar.js" />
     <Content Include="Scripts\theme.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -338,43 +346,31 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Blogs\" />
+    <Folder Include="Areas\Admin\Views\Base\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
     <None Include="packages.config" />
-    <Content Include="Views\Shared\_HomeBanner.cshtml" />
-    <Content Include="Views\Shared\_WorkArea.cshtml" />
-    <Content Include="Views\Shared\_MadeLifeArea.cshtml" />
-    <Content Include="Views\Shared\_ScreenArea.cshtml" />
-    <Content Include="Views\Shared\_MadeLifeArea2.cshtml" />
-    <Content Include="Views\Shared\_PriceArea.cshtml" />
-    <Content Include="Views\Shared\_TestArea.cshtml" />
-    <Content Include="Views\Shared\_MadeLifeArea3.cshtml" />
-    <Content Include="Views\Shared\_ImpressArea.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Pages\Pricing.cshtml" />
     <Content Include="Views\Pages\Elements.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\Details.cshtml" />
-    <Content Include="Views\Home\Advantages.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909141224399_setDb.resx">
-      <DependentUpon>201909141224399_setDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909141245487_add-data.resx">
-      <DependentUpon>201909141245487_add-data.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909141247596_add-data2.resx">
-      <DependentUpon>201909141247596_add-data2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

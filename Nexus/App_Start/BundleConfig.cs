@@ -9,7 +9,9 @@ namespace Nexus
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
+
                         "~/Scripts/jquery-3.2.1.min.js",
+                        "~/Scripts/toastr.js",
                         "~/Scripts/popper.js",
                         "~/Scripts/bootstrap.min.js",
                         "~/Scripts/stellar.js",
@@ -17,6 +19,8 @@ namespace Nexus
                         "~/Scripts/mail-script.js",
                         "~/Scripts/gmaps.min.js",
                         "~/Scripts/theme.js",
+                        "~/Scripts/jquery.validate.unobtrusive.min.js",
+                        "~/Scripts/jquery.validate.min.js",
                         "~/Content/vendors/lightbox/simpleLightbox.min.js",
                         "~/Content/vendors/nice-select/js/jquery.nice-select.min.js",
                         "~/Content/vendors/isotope/imagesloaded.pkgd.min.js",

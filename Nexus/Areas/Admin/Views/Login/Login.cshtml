@@ -1,0 +1,48 @@
+﻿@model Nexus.Areas.Admin.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/lib")
+</head>
+<body>
+    <div class="row ">
+        <div class="col-md-auto"  style="margin:100px auto">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            {
+                @Html.ValidationSummary(false,"", "error");
+                <div class="form-group">
+                    @Html.LabelFor(x => x.UserName)
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.UserName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Password)
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Password)
+                </div>
+
+                <div class="form-check">
+                    @Html.CheckBoxFor(x => x.RememberMe, new { @class = "form-check-input" })
+                    @Html.LabelFor(x => x.RememberMe, new { @class = "form-check-label" })
+
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            }
+
+
+        </div>
+    </div>
+</body>
+</html>
+
